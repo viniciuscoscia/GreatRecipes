@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.stepDetailsActivity.StepDetailsActivity">
+
+    <FrameLayout
+        android:id="@+id/step_details_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/view_botton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_botton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_previous_step"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/previous_step"
+        android:onClick="previousStep"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view_botton"
+        app:layout_constraintTop_toTopOf="@+id/view_botton"
+        app:srcCompat="@drawable/ic_keyboard_arrow_left_white_24dp"
+        tools:srcCompat="@drawable/ic_keyboard_arrow_left_white_24dp" />
+
+    <ImageButton
+        android:id="@+id/iv_next_step"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="10dp"
+        android:contentDescription="@string/next_step"
+        android:onClick="nextStep"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/view_botton"
+        app:layout_constraintTop_toTopOf="@+id/view_botton"
+        app:srcCompat="@drawable/ic_keyboard_arrow_right_white_24dp"
+        tools:srcCompat="@drawable/ic_keyboard_arrow_right_white_24dp" />
+
+</android.support.constraint.ConstraintLayout>

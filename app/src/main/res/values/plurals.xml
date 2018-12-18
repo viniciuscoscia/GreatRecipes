@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="recipe_servings">
+        <item quantity="one">Serve %d pessoa</item>
+        <item quantity="few">Serve %d pessoas</item>
+        <item quantity="other">Serve %d pessoas</item>
+    </plurals>
+</resources>
