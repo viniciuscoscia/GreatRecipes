@@ -12,6 +12,7 @@ public class StepDetailsViewModel extends AndroidViewModel {
 
     private List<Step> stepList;
     private int listPosition;
+    private boolean firstTime = true;
 
     public StepDetailsViewModel(@NonNull Application application) {
         super(application);
@@ -31,5 +32,13 @@ public class StepDetailsViewModel extends AndroidViewModel {
 
     public void setListPosition(int listPosition) {
         this.listPosition = listPosition;
+    }
+
+    public boolean isFirstTime() {
+        return firstTime;
+    }
+
+    public void setFirstTime(boolean firstTime) {
+        this.firstTime = firstTime;
     }
 }

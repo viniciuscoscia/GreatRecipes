@@ -11,8 +11,7 @@
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/playerView"
         android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:elevation="10dp"
+        android:layout_height="300dp"
         android:foregroundGravity="top"
         android:minHeight="150dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -23,10 +22,9 @@
     <ImageView
         android:id="@+id/no_video"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:contentDescription="@string/no_video"
         android:foregroundGravity="top"
-        android:minHeight="150dp"
         android:scaleType="centerCrop"
         android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"

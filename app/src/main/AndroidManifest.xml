@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.mainActivity.MainActivity">
+        <activity android:name=".ui.mainActivity.MainActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.recipeDetailsActivity.RecipeDetailsActivity" />
-        <activity android:name=".ui.stepDetailsActivity.StepDetailsActivity" />
+        <activity android:name=".ui.stepDetailsActivity.StepDetailsActivity"
+            android:launchMode="singleInstance"/>
 
         <receiver android:name=".widget.IngredientsWidgetProvider">
             <intent-filter>

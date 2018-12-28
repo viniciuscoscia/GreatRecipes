@@ -9,6 +9,8 @@ import com.example.viniciuscoscia.greatrecipes.entity.Recipe;
 public class RecipeDetailsViewModel extends AndroidViewModel {
 
     private Recipe recipe;
+    private int listPosition = 0;
+    private boolean firstTime = true;
 
     public RecipeDetailsViewModel(@NonNull Application application) {
         super(application);
@@ -20,5 +22,21 @@ public class RecipeDetailsViewModel extends AndroidViewModel {
 
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
+    }
+
+    public int getListPosition() {
+        return listPosition;
+    }
+
+    public boolean isFirstTime() {
+        return firstTime;
+    }
+
+    public void setListPosition(int listPosition) {
+        this.listPosition = listPosition;
+    }
+
+    public void setFirstTime(boolean firstTime) {
+        this.firstTime = firstTime;
     }
 }

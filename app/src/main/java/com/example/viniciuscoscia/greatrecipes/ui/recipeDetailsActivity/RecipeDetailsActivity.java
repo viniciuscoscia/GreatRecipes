@@ -2,11 +2,9 @@ package com.example.viniciuscoscia.greatrecipes.ui.recipeDetailsActivity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.example.viniciuscoscia.greatrecipes.R;
 import com.example.viniciuscoscia.greatrecipes.entity.Ingredient;
@@ -24,6 +22,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     private RecipeDetailsViewModel recipeDetailsViewModel;
     private boolean twoPanel = false;
     private FragmentManager fragmentManager;
+    private StepDetailsFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,27 +31,35 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
 
         fragmentManager = getSupportFragmentManager();
 
-        setupViewModel();
-        setupTwoPanel();
+        if(savedInstanceState != null) {
+            fragment = (StepDetailsFragment)getSupportFragmentManager().getFragment(savedInstanceState, StepDetailsFragment.TAG);
+        }
 
+        setupViewModel();
         startRecipeDetailsFragment();
+        checkIsTwoPanel();
+
+        if(recipeDetailsViewModel.isFirstTime() && twoPanel){
+            startStepDetailFragment(recipeDetailsViewModel.getRecipe().getStepList()
+                    .get(0));
+            recipeDetailsViewModel.setFirstTime(false);
+        }
     }
 
-    private void setupTwoPanel() {
+    private void checkIsTwoPanel() {
         if(findViewById(R.id.step_details_container) == null){
             return;
         }
 
         twoPanel = true;
-        startStepDetailFragment(recipeDetailsViewModel.getRecipe().getStepList().get(0));
     }
 
     private void startStepDetailFragment(Step step) {
-        StepDetailsFragment stepDetailsFragment = new StepDetailsFragment();
-        stepDetailsFragment.setStep(step);
+        fragment = new StepDetailsFragment();
+        fragment.setStep(step);
 
         fragmentManager.beginTransaction()
-                .replace(R.id.step_details_container, stepDetailsFragment)
+                .replace(R.id.step_details_container, fragment)
                 .commit();
     }
 
@@ -102,14 +109,13 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
             startStepDetailFragment(step);
             return;
         } else {
-            startStepDetailActivity(step, adapterPosition);
+            startStepDetailActivity(adapterPosition);
         }
     }
 
-    private void startStepDetailActivity(Step step, int adapterPosition) {
+    private void startStepDetailActivity(int adapterPosition) {
         Intent intent = new Intent(this, StepDetailsActivity.class);
 
-        Log.d("ADAPTER POSITION", adapterPosition+"");
         intent.putExtra(Recipe.RECIPE_KEY, recipeDetailsViewModel.getRecipe());
         intent.putExtra(Step.STEP_POSITION, adapterPosition-1);
         startActivity(intent);
@@ -118,5 +124,16 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        fragmentManager.executePendingTransactions();
+
+        if(fragment != null && fragment.isAdded()) {
+            fragmentManager.putFragment(outState, StepDetailsFragment.TAG, fragment);
+        }
     }
 }

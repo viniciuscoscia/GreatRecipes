@@ -38,7 +38,7 @@
         app:srcCompat="@drawable/ic_keyboard_arrow_left_white_24dp"
         tools:srcCompat="@drawable/ic_keyboard_arrow_left_white_24dp" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/iv_next_step"
         android:layout_width="32dp"
         android:layout_height="0dp"
