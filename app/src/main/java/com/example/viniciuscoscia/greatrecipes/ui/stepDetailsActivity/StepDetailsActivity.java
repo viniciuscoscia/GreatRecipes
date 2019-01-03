@@ -1,9 +1,6 @@
 package com.example.viniciuscoscia.greatrecipes.ui.stepDetailsActivity;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -14,6 +11,10 @@ import com.example.viniciuscoscia.greatrecipes.entity.Step;
 import com.example.viniciuscoscia.greatrecipes.ui.fragments.stepDetails.StepDetailsFragment;
 
 import java.util.Objects;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 
 public class StepDetailsActivity extends AppCompatActivity implements StepDetailsFragment.VideoConfiguration {
 

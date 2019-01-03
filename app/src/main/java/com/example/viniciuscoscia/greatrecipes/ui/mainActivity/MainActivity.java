@@ -1,15 +1,7 @@
 package com.example.viniciuscoscia.greatrecipes.ui.mainActivity;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.example.viniciuscoscia.greatrecipes.R;
 import com.example.viniciuscoscia.greatrecipes.entity.Recipe;
@@ -17,6 +9,13 @@ import com.example.viniciuscoscia.greatrecipes.ui.recipeDetailsActivity.RecipeDe
 import com.example.viniciuscoscia.greatrecipes.widget.IngredientChangeService;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity implements RecipesAdapter.RecipeOnClick{
 

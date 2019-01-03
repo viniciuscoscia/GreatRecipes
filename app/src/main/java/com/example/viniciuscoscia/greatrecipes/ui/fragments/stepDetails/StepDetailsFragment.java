@@ -3,8 +3,6 @@ package com.example.viniciuscoscia.greatrecipes.ui.fragments.stepDetails;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.view.LayoutInflater;
@@ -27,6 +25,9 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 public class StepDetailsFragment extends Fragment implements Player.EventListener {
 

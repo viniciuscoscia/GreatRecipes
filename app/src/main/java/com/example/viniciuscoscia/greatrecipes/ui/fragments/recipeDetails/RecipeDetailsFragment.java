@@ -2,9 +2,6 @@ package com.example.viniciuscoscia.greatrecipes.ui.fragments.recipeDetails;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +10,10 @@ import com.example.viniciuscoscia.greatrecipes.R;
 import com.example.viniciuscoscia.greatrecipes.entity.Step;
 
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class RecipeDetailsFragment extends Fragment implements RecipeDetailsAdapter.RecipeDetailsOnClick {
 
@@ -40,7 +41,7 @@ public class RecipeDetailsFragment extends Fragment implements RecipeDetailsAdap
         recyclerView.setAdapter(recipesAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(rootView.getContext(),
-                LinearLayoutManager.VERTICAL, false));
+                RecyclerView.VERTICAL, false));
     }
 
     public void setupAdapter(List<Object> objects) {

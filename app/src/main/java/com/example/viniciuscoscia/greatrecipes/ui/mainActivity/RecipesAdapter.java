@@ -1,19 +1,23 @@
 package com.example.viniciuscoscia.greatrecipes.ui.mainActivity;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.viniciuscoscia.greatrecipes.databinding.RecipeCardBinding;
 import com.example.viniciuscoscia.greatrecipes.entity.Recipe;
 import com.example.viniciuscoscia.greatrecipes.utils.ImageResources;
 import com.squareup.picasso.Picasso;
+import com.example.viniciuscoscia.greatrecipes.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesViewHolder> {
 
@@ -28,9 +32,15 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
     @NonNull
     @Override
     public RecipesViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        final RecipeCardBinding view = RecipeCardBinding
-                .inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
-        return new RecipesViewHolder(view);
+
+        View itemLista = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recipe_card,
+                                                                    viewGroup, false);
+
+        return new RecipesViewHolder(itemLista);
+
+//        final RecipeCardBinding view = RecipeCardBinding
+//                .inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
+//        return new RecipesViewHolder(view);
     }
 
     @Override
@@ -43,27 +53,29 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
         Context context = recipesViewHolder.itemView.getContext();
         Recipe actualRecipe = recipeList.get(i);
 
-        recipesViewHolder.recipeCardBinding.setRecipe(actualRecipe);
-
-        setImage(recipesViewHolder, context, actualRecipe);
+        recipesViewHolder.recipeName.setText(actualRecipe.getName());
+        setImage(recipesViewHolder.recipeImage, context, actualRecipe);
+        recipesViewHolder.recipeServings.setText(context.getResources()
+                .getQuantityString(R.plurals.recipe_servings, actualRecipe.getServings(),
+                        actualRecipe.getServings()));
     }
 
-    private void setImage(@NonNull RecipesViewHolder recipesViewHolder, Context context, Recipe actualRecipe) {
+    private void setImage(@NonNull ImageView recipeServings, Context context, Recipe actualRecipe) {
         //Verify if ImagePath is empty, if it is, may throw a exception
         if(!actualRecipe.getImagePath().isEmpty()) {
-            Picasso.with(recipesViewHolder.itemView.getContext())
+            Picasso.with(context)
                     .load(actualRecipe.getImagePath())
                     .error(ImageResources.getImageResource(context, actualRecipe.getName()))
-                    .into(recipesViewHolder.recipeCardBinding.ivRecipeImage);
+                    .into(recipeServings);
             return;
         }
 
-        Picasso.with(recipesViewHolder.itemView.getContext())
+        Picasso.with(context)
                 .load(ImageResources.getImageResource(context, actualRecipe.getName()))
-                .into(recipesViewHolder.recipeCardBinding.ivRecipeImage);
+                .into(recipeServings);
     }
 
-    public void setRecipeList(List<Recipe> recipeList) {
+    void setRecipeList(List<Recipe> recipeList) {
         this.recipeList = recipeList;
         notifyDataSetChanged();
     }
@@ -73,12 +85,16 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
     }
 
     public class RecipesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        RecipeCardBinding recipeCardBinding;
+        TextView recipeName;
+        ImageView recipeImage;
+        TextView recipeServings;
 
-        public RecipesViewHolder(RecipeCardBinding itemView) {
-            super(itemView.getRoot());
-            recipeCardBinding = itemView;
-            recipeCardBinding.getRoot().setOnClickListener(this);
+        RecipesViewHolder(View itemView) {
+            super(itemView);
+            recipeName = itemView.findViewById(R.id.tv_recipeName);
+            recipeImage = itemView.findViewById(R.id.iv_recipeImage);
+            recipeServings = itemView.findViewById(R.id.tv_recipeServings);
+            itemView.setOnClickListener(this);
         }
 
         @Override
