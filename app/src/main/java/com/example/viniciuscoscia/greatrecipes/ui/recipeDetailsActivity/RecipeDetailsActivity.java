@@ -2,6 +2,7 @@ package com.example.viniciuscoscia.greatrecipes.ui.recipeDetailsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.example.viniciuscoscia.greatrecipes.R;
 import com.example.viniciuscoscia.greatrecipes.entity.Ingredient;
@@ -24,12 +25,14 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
     private boolean twoPanel = false;
     private FragmentManager fragmentManager;
     private StepDetailsFragment fragment;
+    private TextView recipeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_details);
 
+        recipeName = findViewById(R.id.tv_recipe_name);
         fragmentManager = getSupportFragmentManager();
 
         if(savedInstanceState != null) {
@@ -70,6 +73,7 @@ public class RecipeDetailsActivity extends AppCompatActivity implements RecipeDe
         Intent intent = getIntent();
         Recipe recipe = intent.getParcelableExtra(Recipe.RECIPE_KEY);
         recipeDetailsViewModel.setRecipe(recipe);
+        recipeName.setText(recipe.getName());
     }
 
     private List<Object> extractObjectList(Recipe recipe) {
