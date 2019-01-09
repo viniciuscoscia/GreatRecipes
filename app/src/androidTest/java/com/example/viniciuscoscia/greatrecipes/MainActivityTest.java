@@ -11,6 +11,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.espresso.matcher.BoundedMatcher;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -26,8 +27,8 @@ public class MainActivityTest {
 
     @Test
     public void clickRecipeItem_OpenRecipe(){
-        onView(withId(R.id.rv_recipes)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, click()));
+        onView(withId(R.id.rv_recipes))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         onView(withId(R.id.tv_recipe_name)).check(matches(withText("Nutella Pie")));
     }

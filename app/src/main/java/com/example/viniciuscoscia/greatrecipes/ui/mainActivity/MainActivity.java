@@ -1,12 +1,14 @@
 package com.example.viniciuscoscia.greatrecipes.ui.mainActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.example.viniciuscoscia.greatrecipes.R;
 import com.example.viniciuscoscia.greatrecipes.entity.Recipe;
 import com.example.viniciuscoscia.greatrecipes.ui.recipeDetailsActivity.RecipeDetailsActivity;
 import com.example.viniciuscoscia.greatrecipes.widget.IngredientChangeService;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -56,7 +58,12 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.Re
     public void onRecipeClickListener(Recipe recipe) {
         Intent intent = new Intent(this, RecipeDetailsActivity.class);
         intent.putExtra(Recipe.RECIPE_KEY, recipe);
+        Gson gson = new Gson();
         IngredientChangeService.changeIngredientsListWidget(this, recipe);
+
+        SharedPreferences.Editor editor = getSharedPreferences("recipeApp", MODE_PRIVATE).edit();
+        editor.putString("lastRecipe", gson.toJson(recipe));
+
         startActivity(intent);
     }
 }
