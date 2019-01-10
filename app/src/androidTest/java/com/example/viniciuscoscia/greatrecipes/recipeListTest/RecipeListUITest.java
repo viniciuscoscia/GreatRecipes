@@ -1,4 +1,4 @@
-package com.example.viniciuscoscia.greatrecipes;
+package com.example.viniciuscoscia.greatrecipes.recipeListTest;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +19,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.filters.MediumTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -44,7 +47,7 @@ public class RecipeListUITest {
         Recipe recipe = gson.fromJson(Utils.jsonFromRaw(context, R.raw.recipe_example), Recipe.class);
 
         Intent intent = new Intent();
-        intent.putExtra(Recipe.RECIPE_KEY,recipe);
+        intent.putExtra(Recipe.RECIPE_KEY, recipe);
 
         recipeDetailsActivityTestRule.launchActivity(intent);
     }
@@ -54,8 +57,17 @@ public class RecipeListUITest {
         onView(withId(R.id.rv_recipe_details))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
 
-        onView(withId(R.id.playerView))
-                .check(matches(isDisplayed()));
+        onView(withId(R.id.playerView)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void startActivity_TabletMode() {
+        onView(withId(R.id.tv_stepDescription)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void startActivity_SmartphoneMode() {
+        onView(withId(R.id.tv_stepDescription)).check(doesNotExist());
     }
 
 }

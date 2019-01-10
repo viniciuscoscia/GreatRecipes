@@ -58,11 +58,8 @@ public class MainActivity extends AppCompatActivity implements RecipesAdapter.Re
     public void onRecipeClickListener(Recipe recipe) {
         Intent intent = new Intent(this, RecipeDetailsActivity.class);
         intent.putExtra(Recipe.RECIPE_KEY, recipe);
-        Gson gson = new Gson();
-        IngredientChangeService.changeIngredientsListWidget(this, recipe);
 
-        SharedPreferences.Editor editor = getSharedPreferences("recipeApp", MODE_PRIVATE).edit();
-        editor.putString("lastRecipe", gson.toJson(recipe));
+        IngredientChangeService.changeIngredientsListWidget(this, recipe);
 
         startActivity(intent);
     }
