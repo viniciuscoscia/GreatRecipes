@@ -7,11 +7,9 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import com.example.viniciuscoscia.greatrecipes.R;
-import com.example.viniciuscoscia.greatrecipes.entity.Recipe;
 import com.example.viniciuscoscia.greatrecipes.ui.mainActivity.MainActivity;
 
 /**
@@ -21,29 +19,16 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                Recipe recipe, int appWidgetId) {
+                                int appWidgetId) {
 
-//        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
-//
-//        Intent intent = new Intent(context, MainActivity.class);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-//
-//        remoteViews.setOnClickPendingIntent(R.id.tv_ingredient, pendingIntent);
-//
-//        appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
-
-
-        RemoteViews rv = getIngredientsRemoteView(context, recipe);
+        RemoteViews rv = getIngredientsRemoteView(context);
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.ingredients_view);
         appWidgetManager.updateAppWidget(appWidgetId, rv);
     }
 
-    private static RemoteViews getIngredientsRemoteView(Context context, Recipe recipe) {
+    private static RemoteViews getIngredientsRemoteView(Context context) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget);
         Intent intent = new Intent(context, IngredientListService.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(Recipe.RECIPE_KEY, recipe);
-        intent.putExtra(IngredientListService.BUNDLE_KEY, bundle);
 
         views.setRemoteAdapter(R.id.lv_ingredients, intent);
 
@@ -55,9 +40,9 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
     }
 
     public static void updateIngredientsWidgets(Context context, AppWidgetManager appWidgetManager,
-                                                Recipe recipe, int[] appWidgetIds) {
+                                                int[] appWidgetIds) {
         for(int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, recipe, appWidgetId);
+            updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 

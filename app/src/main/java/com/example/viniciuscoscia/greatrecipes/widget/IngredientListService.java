@@ -2,6 +2,8 @@ package com.example.viniciuscoscia.greatrecipes.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -9,17 +11,14 @@ import android.widget.RemoteViewsService;
 
 import com.example.viniciuscoscia.greatrecipes.R;
 import com.example.viniciuscoscia.greatrecipes.entity.Recipe;
+import com.google.gson.Gson;
 
 public class IngredientListService extends RemoteViewsService {
 
-    public static final String BUNDLE_KEY = "bundleKey";
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        Bundle bundle = intent.getBundleExtra(BUNDLE_KEY);
-        Recipe recipe = bundle.getParcelable(Recipe.RECIPE_KEY);
-
-        return new IngredientListViewsFactory(this.getApplicationContext(), recipe);
+        return new IngredientListViewsFactory(this.getApplicationContext());
     }
 }
 
@@ -28,14 +27,19 @@ class IngredientListViewsFactory implements RemoteViewsService.RemoteViewsFactor
     Recipe recipe;
     Context mContext;
 
-    public IngredientListViewsFactory(Context applicationContext, Recipe recipe) {
+    public IngredientListViewsFactory(Context applicationContext) {
         mContext = applicationContext;
-        this.recipe = recipe;
     }
 
     @Override
     public void onDataSetChanged() {
-        Log.d("TESTE", "TESTE");
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("recipeApp", Context.MODE_PRIVATE);
+        String recipeString = sharedPreferences.getString("lastRecipe", "");
+
+        if(recipeString.equals("")) {
+           return;
+        }
+        recipe = new Gson().fromJson(recipeString, Recipe.class);
     }
 
     @Override
